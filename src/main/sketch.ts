@@ -21,4 +21,35 @@
  * for full license details.
  */
 
-console.log('Hello, world!');
+import { ASPECT_RATIOS, Canvas, P5Context } from '@batpb/genart';
+import P5Lib from 'p5';
+
+import '../../assets/styles/sketch.css';
+
+function sketch(p5: P5Lib): void {
+    p5.setup = (): void => {
+        P5Context.initialize(p5);
+        Canvas.buildCanvas(ASPECT_RATIOS.SQUARE, 1080, p5.P2D, false, true);
+    };
+
+    p5.draw = (): void => {
+        p5.background(0);
+        p5.fill(255, 0, 0);
+        p5.ellipse(0, 0, 200, 200);
+        p5.fill(0, 0, 255);
+        p5.ellipse(Canvas.context.width / 2.0, Canvas.context.height / 2.0, 200, 200);
+        p5.ellipse(p5.mouseX, p5.mouseY, 100, 100);
+    };
+
+    p5.keyPressed = (): void => {
+    };
+
+    p5.mousePressed = (): void => {
+    };
+
+    p5.windowResized = (): void => {
+        Canvas.resize();
+    };
+}
+
+new P5Lib(sketch);
