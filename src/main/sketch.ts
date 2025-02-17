@@ -36,6 +36,15 @@ import '../../assets/styles/sketch.css';
 
 import { SketchScreen } from './sketch-screen';
 
+// TODO - GraphicsContext and CanvasContext
+// TODO - changing Canvas aspect ratio at runtime
+// TODO - changing Canvas resolution at runtime
+// TODO - changing GraphicsContext aspectRatio at runtime
+// TODO - changing GraphicsContext resolution at runtime
+// TODO - switching between GraphicsContexts at runtime
+// TODO - matching Canvas aspect ratio to window with constant GraphicsContext
+// TODO - matching Canvas aspect ratio to window with matching GraphicsContext
+
 const p5: P5Lib = P5Context.p5;
 
 p5.setup = (): void => {
