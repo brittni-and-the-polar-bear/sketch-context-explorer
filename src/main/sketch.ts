@@ -21,51 +21,31 @@
  * for full license details.
  */
 
-import { ASPECT_RATIOS, Canvas, CanvasScreen, ContextConfig, GraphicsContext, P5Context } from '@batpb/genart';
 import P5Lib from 'p5';
+import {
+    ASPECT_RATIOS,
+    AspectRatio,
+    Canvas,
+    CanvasScreen,
+    ContextConfig,
+    GraphicsContext,
+    P5Context
+} from '@batpb/genart';
 
 import '../../assets/styles/sketch.css';
-// import { P5Context } from '@batpb/genart';
+
 import { SketchScreen } from './sketch-screen';
 
-// function sketch(p5: P5Lib): void {
-//     p5.setup = (): void => {
-//         const p: P5Lib = P5Context.p5;
-//         p.createCanvas(500, 500);
-//     };
-
-//     p5.draw = (): void => {
-//         const p: P5Lib = P5Context.p5;
-//         p.background(255, 0, 0);
-//         p5.background(0);
-//         // p5.background(0);
-//         // p5.fill(255, 0, 0);
-//         // p5.ellipse(0, 0, 200, 200);
-//         // p5.fill(0, 0, 255);
-//         // p5.ellipse(Canvas.context.width / 2.0, Canvas.context.height / 2.0, 200, 200);
-//         // p5.ellipse(p5.mouseX, p5.mouseY, 100, 100);
-//     };
-
-//     p5.keyPressed = (): void => {
-//     };
-
-//     p5.mousePressed = (): void => {
-//     };
-
-//     p5.windowResized = (): void => {
-//         // Canvas.resize();
-//     };
-// }
-
-// new P5Lib(sketch);
 const p5: P5Lib = P5Context.p5;
 
 p5.setup = (): void => {
-    // P5Context.reset();
-    Canvas.buildCanvas(ASPECT_RATIOS.SQUARE, 1080, p5.P2D, false, true);
-    Canvas.name = 'sketch-canvas';
+    Canvas.buildCanvas(ASPECT_RATIOS.SQUARE, 1080, p5.P2D, 'sketch-context-canvas', false, true);
 
-    const graphicsConfig: ContextConfig = {};
+    const graphicsConfig: ContextConfig = {
+        NAME: 'sketch-graphics',
+        ASPECT_RATIO: new AspectRatio(ASPECT_RATIOS.WIDESCREEN),
+        RESOLUTION: 2160,
+    };
     const graphicsContext: GraphicsContext = new GraphicsContext(graphicsConfig);
 
     const screen: CanvasScreen = new SketchScreen({
@@ -78,8 +58,6 @@ p5.setup = (): void => {
 };
 
 p5.draw = (): void => {
-    // p5.background(255, 255, 0);
-    // p5.ellipse(p5.mouseX, p5.mouseY, 100, 100);
     Canvas.draw();
 };
 
