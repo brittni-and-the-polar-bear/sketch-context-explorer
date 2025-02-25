@@ -37,7 +37,6 @@ import '../../assets/styles/sketch.css';
 import { SketchScreen } from './sketch-screen';
 
 // TODO - GraphicsContext and CanvasContext
-// TODO - changing Canvas aspect ratio at runtime
 // TODO - changing Canvas resolution at runtime
 // TODO - changing GraphicsContext aspectRatio at runtime
 // TODO - changing GraphicsContext resolution at runtime
@@ -52,8 +51,8 @@ p5.setup = (): void => {
 
     const graphicsConfig: ContextConfig = {
         NAME: 'sketch-graphics',
-        ASPECT_RATIO: new AspectRatio(ASPECT_RATIOS.WIDESCREEN),
-        RESOLUTION: 2160,
+        ASPECT_RATIO: new AspectRatio(ASPECT_RATIOS.SQUARE),
+        RESOLUTION: 2160
     };
     const graphicsContext: GraphicsContext = new GraphicsContext(graphicsConfig);
 
@@ -72,4 +71,23 @@ p5.draw = (): void => {
 
 p5.windowResized = (): void => {
     Canvas.resize();
+};
+
+p5.keyPressed = (): void => {
+    if (p5.key === '1') {
+        const ratio: AspectRatio = new AspectRatio(ASPECT_RATIOS.SQUARE);
+        Canvas.updateAspectRatio(ratio);
+    } else if (p5.key === '2') {
+        const ratio: AspectRatio = new AspectRatio(ASPECT_RATIOS.SOCIAL_VIDEO);
+        Canvas.updateAspectRatio(ratio);
+    } else if (p5.key === '3') {
+        const ratio: AspectRatio = new AspectRatio(ASPECT_RATIOS.WIDESCREEN);
+        Canvas.updateAspectRatio(ratio);
+    } else if (p5.key === '0') {
+        Canvas.updateResolution(1080);
+    } else if (p5.key === '9') {
+        Canvas.updateResolution(720);
+    } else if (p5.key === '8') {
+        Canvas.updateResolution(2160);
+    }
 };
