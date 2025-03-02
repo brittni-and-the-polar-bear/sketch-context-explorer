@@ -26,15 +26,13 @@ import {
     ASPECT_RATIOS,
     AspectRatio,
     Canvas,
-    CanvasScreen,
-    ContextConfig,
-    GraphicsContext,
-    P5Context
+    CanvasScreenConfig, GraphicsContext,
+    P5Context, ScreenConfigBuilder
 } from '@batpb/genart';
 
-import '../../assets/styles/sketch.css';
-
 import { SketchScreen } from './sketch-screen';
+
+import '../../assets/styles/sketch.css';
 
 // TODO - GraphicsContext and CanvasContext
 // TODO - changing Canvas resolution at runtime
@@ -47,20 +45,9 @@ import { SketchScreen } from './sketch-screen';
 const p5: P5Lib = P5Context.p5;
 
 p5.setup = (): void => {
-    Canvas.buildCanvas(ASPECT_RATIOS.SQUARE, 1080, p5.P2D, 'sketch-context-canvas', false, true);
+    Canvas.buildCanvas(ASPECT_RATIOS.SQUARE, 720, p5.P2D, 'sketch-context-canvas', false, true);
 
-    const graphicsConfig: ContextConfig = {
-        NAME: 'sketch-graphics',
-        ASPECT_RATIO: new AspectRatio(ASPECT_RATIOS.SQUARE),
-        RESOLUTION: 2160
-    };
-    const graphicsContext: GraphicsContext = new GraphicsContext(graphicsConfig);
-
-    const screen: CanvasScreen = new SketchScreen({
-        NAME: 'sketch-screen',
-        ACTIVE_GRAPHICS: graphicsContext
-    });
-
+    const screen: SketchScreen = new SketchScreen(buildSketchScreen());
     Canvas.addScreen(screen);
     Canvas.currentScreen = 'sketch-screen';
 };
@@ -91,3 +78,28 @@ p5.keyPressed = (): void => {
         Canvas.updateResolution(2160);
     }
 };
+
+function buildSketchScreen(): CanvasScreenConfig {
+    const builder: ScreenConfigBuilder = new ScreenConfigBuilder();
+    builder.setName('sketch-screen')
+        .setActiveGraphics({
+            NAME: 'sketch-graphics',
+            ASPECT_RATIO: new AspectRatio(ASPECT_RATIOS.SQUARE),
+            RESOLUTION: 1080
+        })
+        .addGraphics({
+            NAME: 'sketch-graphics-2',
+            ASPECT_RATIO: new AspectRatio(ASPECT_RATIOS.SOCIAL_VIDEO),
+            RESOLUTION: 1080
+        })
+        .addGraphics({
+            NAME: 'sketch-graphics-3',
+            ASPECT_RATIO: new AspectRatio(ASPECT_RATIOS.WIDESCREEN),
+            RESOLUTION: 1080
+        });
+
+    return builder.build() ?? {
+        NAME: 'default-screen',
+        ACTIVE_GRAPHICS: new GraphicsContext({NAME: 'default-graphics'})
+    };
+}
