@@ -33,6 +33,7 @@ import {
 import { SketchScreen } from './sketch-screen';
 
 import '../../assets/styles/sketch.css';
+import {PointScreen} from "./point-screen";
 
 // TODO - GraphicsContext and CanvasContext
 // TODO - changing Canvas resolution at runtime
@@ -49,7 +50,10 @@ p5.setup = (): void => {
 
     const screen: SketchScreen = new SketchScreen(buildSketchScreen());
     Canvas.addScreen(screen);
-    Canvas.currentScreen = 'sketch-screen';
+
+    const pointScreen: PointScreen = new PointScreen(buildPointScreen());
+    Canvas.addScreen(pointScreen);
+    Canvas.currentScreen = pointScreen.NAME;
 };
 
 p5.draw = (): void => {
@@ -77,6 +81,8 @@ p5.keyPressed = (): void => {
     } else if (p5.key === '8') {
         Canvas.updateResolution(2160);
     }
+
+    Canvas.keyPressed();
 };
 
 function buildSketchScreen(): CanvasScreenConfig {
@@ -94,6 +100,31 @@ function buildSketchScreen(): CanvasScreenConfig {
         })
         .addGraphics({
             NAME: 'sketch-graphics-3',
+            ASPECT_RATIO: new AspectRatio(ASPECT_RATIOS.WIDESCREEN),
+            RESOLUTION: 1080
+        });
+
+    return builder.build() ?? {
+        NAME: 'default-screen',
+        ACTIVE_GRAPHICS: new GraphicsContext({NAME: 'default-graphics'})
+    };
+}
+
+function buildPointScreen(): CanvasScreenConfig {
+    const builder: ScreenConfigBuilder = new ScreenConfigBuilder();
+    builder.setName('point-screen')
+        .setActiveGraphics({
+            NAME: 'point-graphics',
+            ASPECT_RATIO: new AspectRatio(ASPECT_RATIOS.SQUARE),
+            RESOLUTION: 1080
+        })
+        .addGraphics({
+            NAME: 'point-graphics_social',
+            ASPECT_RATIO: new AspectRatio(ASPECT_RATIOS.SOCIAL_VIDEO),
+            RESOLUTION: 1080
+        })
+        .addGraphics({
+            NAME: 'point-graphics_widescreen',
             ASPECT_RATIO: new AspectRatio(ASPECT_RATIOS.WIDESCREEN),
             RESOLUTION: 1080
         });
