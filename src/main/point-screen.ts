@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023-2025 brittni and the polar bear LLC.
+ * Copyright (C) 2025 brittni and the polar bear LLC.
  *
  * This file is a part of brittni and the polar bear's sketch context explorer project,
  * which is released under the GNU Affero General Public License, Version 3.0.
@@ -21,31 +21,3 @@
  * for full license details.
  */
 
-/*
- * To remove borders and scroll bars from the sketch page,
- * and to keep canvas in the center of the browser window at all times.
- */
-
-html, body {
-    margin: 0;
-    padding: 0;
-    border: none;
-}
-
-body {
-    width: 100vw;
-    height: 100vh;
-}
-
-main {
-    display: grid;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-}
-
-canvas {
-    grid-row: 1;
-    grid-column: 1;
-}
