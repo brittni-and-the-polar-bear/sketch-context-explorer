@@ -32,8 +32,9 @@ import {
 
 import { SketchScreen } from './sketch-screen';
 
+import { PointScreen } from './point-screen';
+
 import '../../assets/styles/sketch.css';
-import {PointScreen} from "./point-screen";
 
 // TODO - GraphicsContext and CanvasContext
 // TODO - changing Canvas resolution at runtime
